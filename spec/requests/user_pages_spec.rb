@@ -16,7 +16,7 @@ describe "user_pages" do
 
 		let(:submit) { "Sign up" }
 
-		describe "valid inputs" do
+		describe "valid information" do
 			before do
 				fill_in "First name", with: "Gerry"
 				fill_in "Last name",	with: "Pass"
@@ -30,7 +30,7 @@ describe "user_pages" do
 			end
 		end
 
-		describe "invalid inputs" do
+		describe "invalid information" do
 		end
 	end
 
