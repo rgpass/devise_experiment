@@ -22,6 +22,7 @@ describe "authentication_pages" do
 			end
 
 			it { should have_link('Profile',			href: user_path(user)) }
+			it { should have_link('Settings',     href: edit_user_path(user)) }
 			it { should have_link('Sign out',			href: destroy_user_session_path) }
 			it { should_not have_link('Sign in',	href: new_user_session_path) }
 			it { should_not have_link('Sign up',	href: new_user_registration_path) }
@@ -32,5 +33,29 @@ describe "authentication_pages" do
 
 			it { should have_title("Sign in") }
 		end		
+	end
+
+	describe "DELETE /users/sign_out" do
+		describe "should be forwarded to root" do
+			pending "Add visit to destroy path via delete, then forward"
+		end
+	end
+
+	describe "authorization" do
+		describe "non-signed-in users" do
+			let(:user) { FactoryGirl.create(:user) }
+
+			describe "in Users controller" do
+				describe "visiting edit page" do
+					before { visit edit_user_path(user) }
+					it { should have_title('Sign in') }
+				end
+
+				describe "submitting to the update action" do
+					before { patch user_path(user) }
+					specify { expect(response).to redirect_to(new_user_session_path) }
+				end
+			end
+		end
 	end
 end

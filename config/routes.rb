@@ -5,9 +5,12 @@ Happs::Application.routes.draw do
   match "/landing",   to: "static_pages#landing", via: 'get'
   match "/about",     to: "static_pages#about",   via: 'get'
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'registrations' }
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
   # match '/users/:id',  to: "users#show",           via: 'get'
-  resources :users, only: [:show]
+  resources :users, only: [:show, :edit, :update]
 
 
   # The priority is based upon order of creation: first created -> highest priority.
